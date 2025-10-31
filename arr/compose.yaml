@@ -1,0 +1,53 @@
+services:
+  # https://github.com/linuxserver/docker-prowlarr
+  prowlarr:
+    image: linuxserver/prowlarr:develop
+    container_name: prowlarr
+    restart: always
+    ports:
+      - "9696:9696"
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=America/Regina
+    volumes:
+      - /home/jamestanm/data/arr/prowlarr:/config
+      - /home/jamestanm/data/downloads:/downloads  # transmission watch directory
+  # https://github.com/linuxserver/docker-radarr
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    restart: always
+    ports:
+      - "7878:7878"
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=America/Regina
+    volumes:
+      - /home/jamestanm/data/arr/radarr:/config
+      - /home/jamestanm/data/downloads:/downloads
+      - /mediapool/movies/moviesAnime:/movies/moviesAnime
+      - /mediapool/movies/moviesCartoon:/movies/moviesCartoon
+      - /mediapool/movies/moviesLiveAction:/movies/moviesLiveAction
+      - /mediapool/standup:/standup
+      - /mediapool/docs:/docs
+  # https://github.com/linuxserver/docker-sonarr
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: always
+    ports:
+      - "8989:8989"
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=America/Regina
+    volumes:
+      - /home/jamestanm/data/arr/sonarr:/config
+      - /home/jamestanm/data/downloads:/downloads
+      - /mediapool/shows/showsAnime:/shows/showsAnime
+      - /mediapool/shows/showsCartoon:/shows/showsCartoon
+      - /mediapool/shows/showsLiveAction:/shows/showsLiveAction
+      - /mediapool/standup:/standup
+      - /mediapool/docs:/docs

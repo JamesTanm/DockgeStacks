@@ -1,0 +1,45 @@
+services:
+  vpn:
+    image: ghcr.io/bubuntux/nordvpn
+    container_name: vpn
+    restart: always
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - TOKEN=e9f2ab408182e50dc6c0b20dfb13f4f8276ce207c61297346e442abce4b06c5e
+      - CONNECT=UNITED_STATES
+      - TECHNOLOGY=NordLynx
+      - NETWORK=192.168.0.0/24
+    healthcheck:
+      test:
+        - CMD
+        - ping
+        - -c
+        - "1"
+        - http://8.8.8.8
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - 8080:8080
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+  torrent:
+    image: ghcr.io/linuxserver/qbittorrent
+    container_name: torrent
+    restart: always
+    volumes:
+      - /home/jamestanm/data/downloads:/downloads
+      - /mediapool/movies/moviesAnime:/movies/moviesAnime
+      - /mediapool/movies/moviesCartoon:/movies/moviesCartoon
+      - /mediapool/movies/moviesLiveAction:/movies/moviesLiveAction
+      - /mediapool/shows/showsAnime:/shows/showsAnime
+      - /mediapool/shows/showsCartoon:/shows/showsCartoon
+      - /mediapool/shows/showsLiveAction:/shows/showsLiveAction
+      - /mediapool/standup:/standup
+      - /mediapool/docs:/docs
+    network_mode: service:vpn
+    depends_on:
+      - vpn
+networks: {}
