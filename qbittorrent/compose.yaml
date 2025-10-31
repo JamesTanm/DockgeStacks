@@ -17,9 +17,9 @@ services:
         - ping
         - -c
         - "1"
-        - http://8.8.8.8
-      interval: 30s
-      timeout: 10s
+        - 8.8.8.8
+      interval: 2s
+      timeout: 2s
       retries: 5
     ports:
       - 8080:8080
@@ -41,5 +41,6 @@ services:
       - /mediapool/docs:/docs
     network_mode: service:vpn
     depends_on:
-      - vpn
+      vpn:
+        condition: service_healthy
 networks: {}
