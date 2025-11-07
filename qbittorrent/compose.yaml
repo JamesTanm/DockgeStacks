@@ -8,7 +8,7 @@ services:
       - NET_RAW
     environment:
       - TOKEN=e9f2ab408182e50dc6c0b20dfb13f4f8276ce207c61297346e442abce4b06c5e
-      - CONNECT=UNITED_STATES
+      - CONNECT=P2P
       - TECHNOLOGY=NordLynx
       - NETWORK=192.168.0.0/24
     healthcheck:
