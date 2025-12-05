@@ -7,12 +7,12 @@ services:
     ports:
       - 9696:9696
     environment:
-      - PGID=1000
-      - PUID=1000
+      - PGID=1002
+      - PUID=1002
       - TZ=America/Regina
     volumes:
       - /home/jamestanm/data/arr/prowlarr:/config
-      - /home/jamestanm/data/downloads:/downloads # transmission watch directory
+      - /mediapool/downloads:/downloads # transmission watch directory
   # https://github.com/linuxserver/docker-radarr
   radarr:
     image: linuxserver/radarr:latest
@@ -21,15 +21,13 @@ services:
     ports:
       - 7878:7878
     environment:
-      - PGID=1000
-      - PUID=1000
+      - PGID=1002
+      - PUID=1002
       - TZ=America/Regina
     volumes:
       - /home/jamestanm/data/arr/radarr:/config
-      - /home/jamestanm/data/downloads:/downloads
-      - /mediapool/movies/moviesAnime:/movies/moviesAnime
-      - /mediapool/movies/moviesCartoon:/movies/moviesCartoon
-      - /mediapool/movies/moviesLiveAction:/movies/moviesLiveAction
+      - /mediapool/downloads:/downloads
+      - /mediapool/movies:/movies
       - /mediapool/standup:/standup
       - /mediapool/docs:/docs
   # https://github.com/linuxserver/docker-sonarr
@@ -40,15 +38,14 @@ services:
     ports:
       - 8989:8989
     environment:
-      - PGID=1000
-      - PUID=1000
+      - PGID=1002
+      - PUID=1002
       - TZ=America/Regina
     volumes:
       - /home/jamestanm/data/arr/sonarr:/config
-      - /home/jamestanm/data/downloads:/downloads
-      - /mediapool/shows/showsAnime:/shows/showsAnime
-      - /mediapool/shows/showsCartoon:/shows/showsCartoon
-      - /mediapool/shows/showsLiveAction:/shows/showsLiveAction
+      - /mediapool/downloads:/downloads
+      - /mediapool/anime:/anime
+      - /mediapool/shows:/shows
       - /mediapool/standup:/standup
       - /mediapool/docs:/docs
   bazarr:
@@ -60,14 +57,11 @@ services:
       - TZ=America/Regina
     volumes:
       - ./config:/config
-      - /mediapool/shows/showsAnime:/shows/showsAnime
-      - /mediapool/shows/showsCartoon:/shows/showsCartoon
-      - /mediapool/shows/showsLiveAction:/shows/showsLiveAction
+      - /mediapool/anime:/anime
+      - /mediapool/shows:/shows
+      - /mediapool/movies:/movies
       - /mediapool/standup:/standup
       - /mediapool/docs:/docs
-      - /mediapool/movies/moviesAnime:/movies/moviesAnime
-      - /mediapool/movies/moviesCartoon:/movies/moviesCartoon
-      - /mediapool/movies/moviesLiveAction:/movies/moviesLiveAction
     ports:
       - 6767:6767
     restart: unless-stopped

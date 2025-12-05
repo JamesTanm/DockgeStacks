@@ -1,7 +1,7 @@
 services:
   traefik:
     container_name: traefik
-    image: traefik:chevrotin # the chevrotin tag refers to v2.2.x
+    image: traefik:latest # the chevrotin tag refers to v2.2.x
     restart: unless-stopped
     volumes:
       # So that Traefik can listen to the Docker events (read-only)
